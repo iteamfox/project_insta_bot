@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.18.0",
+    "google-translate-api": "^2.3.0",
     "node-telegram-bot-api": "^0.30.0",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.7"
+    "request-promise-native": "^1.0.7",
+    "telebot": "^1.2.6"
   },
   "devDependencies": {},
   "scripts": {

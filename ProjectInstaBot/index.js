@@ -1,5 +1,6 @@
 process.env["NTBA_FIX_319"] = 1;
 const TelegramBot = require('node-telegram-bot-api');
+// const translate = require('extended-google-translate-api');
 const debug = require('./helpers');
 const TOKEN = '808615413:AAH-isfi1X1nzpalYtHF-3NGuZxeGqdn_64';
 console.log('Bot has been started ...');
@@ -44,14 +45,20 @@ bot.onText(/\/start/, function (msg){
     bot.sendMessage(chatId, 'Select language: ',opt);
 });
 
-bot.on('callback_query', function (msg){
+bot.on('message', msg=>{
+    const chatId = msg.chat.id;
     if (msg.data === 'rus'){
         console.log("Russian");
+        bot.sendMessage(chatId, 'Its work');
     }
-
     if (msg.data === 'eng'){
         console.log("English");
     }
+});
+
+bot.onText(/\/activation/, msg=>{
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Select ');
 });
 
 
