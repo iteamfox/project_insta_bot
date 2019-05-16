@@ -1,6 +1,7 @@
 process.env["NTBA_FIX_319"] = 1;
 const TelegramBot = require('node-telegram-bot-api');
-const TOKEN = '808615413:AAGUWZLW3FY9iWntsPgGbkcmoStTAIJ85Rw';
+const debug = require('./helpers');
+const TOKEN = '808615413:AAH-isfi1X1nzpalYtHF-3NGuZxeGqdn_64';
 console.log('Bot has been started ...');
 
 const bot = new TelegramBot(TOKEN,{
@@ -12,25 +13,48 @@ const bot = new TelegramBot(TOKEN,{
         }
     }
 });
+
+bot.on('message', msg => {
+    const markdown = `
+    *Hello, ${msg.from.first_name}!🖐*`;
+    bot.sendMessage(msg.chat.id, markdown, {
+        parse_mode: 'Markdown'
+    })
+});
+
 const opt = {
     parse_mode: 'markdown',
     disable_web_page_preview: false,
     reply_markup: JSON.stringify({
-
         inline_keyboard: [
-            [{text: `Русский `, callback_data:'rus'}],
-                {text: `English ${emoji.get('gb')}`, callback_data:'eng'}
+            [{text: 'Русский 🇷🇺', callback_data:'rus'},
+                {text: 'English 🏴󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'eng'},
+                {text: 'CN 🇨🇳', callback_data:'cn'}],
+            [{text: 'IN 🇮🇳', callback_data:'in'},
+                {text: 'KR 🇰🇷󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'kr'},
+                {text: 'JP 🇯🇵', callback_data:'jp'}],
+            [{text: 'DE 🇩🇪', callback_data:'de'},
+                {text: 'Arab 🇸🇦󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'arab'},
+                {text: 'ES 🇪🇸', callback_data:'es'}]
         ]
     })
-}
-bot.on('callback_query', function (msg) {
+};
+bot.onText(/\/start/, function (msg){
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Select language: ',opt);
+});
+
+bot.on('callback_query', function (msg){
     if (msg.data === 'rus'){
         console.log("Russian");
     }
+
     if (msg.data === 'eng'){
         console.log("English");
     }
 });
+
+
 //
 //
 //
@@ -42,44 +66,7 @@ bot.on('callback_query', function (msg) {
 //     })
 // });
 //
-// const inline_keyboard = [
-//     [{
-//             text:'RU',
-//             callback_data:'ru'
-//     }],
-//     [{
-//             text:'EN',
-//             callback_data:'en'
-//     }],
-//     [{
-//             text:'CN',
-//             callback_data:'cn'
-//     }],
-//     [{
-//             text:'IN',
-//             callback_data:'in'
-//     }],
-//     [{
-//             text:'KR',
-//             callback_data:'kr'
-//     }],
-//     [{
-//             text:'JP',
-//             callback_data:'jp'
-//     }],
-//     [{
-//             text:'DE',
-//             callback_data:'de'
-//     }],
-//     [{
-//             text:'Arab',
-//             callback_data:'arab'
-//     }],
-//     [{
-//             text:'ES',
-//             callback_data:'es'
-//     }]
-// ];
+
 // bot.on('callback_query', query =>{
 //     const {chat, message_id, text} = query.message;
 //    switch (query.data) {
