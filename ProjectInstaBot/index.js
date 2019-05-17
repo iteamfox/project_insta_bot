@@ -23,11 +23,8 @@ bot.on('message', msg => {
     })
 });
 
-const opt = {
-    parse_mode: 'markdown',
-    disable_web_page_preview: false,
-    reply_markup: JSON.stringify({
-        inline_keyboard: [
+
+ const inline_keyboard = [
             [{text: 'Русский 🇷🇺', callback_data:'rus'},
                 {text: 'English 🏴󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'eng'},
                 {text: 'CN 🇨🇳', callback_data:'cn'}],
@@ -37,30 +34,101 @@ const opt = {
             [{text: 'DE 🇩🇪', callback_data:'de'},
                 {text: 'Arab 🇸🇦󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'arab'},
                 {text: 'ES 🇪🇸', callback_data:'es'}]
-        ]
+        ];
+
+bot.on('callback_query', query =>{
+// , message_id, text - to const
+    const {chat} = query.message;
+   switch (query.data) {
+       case 'rus':
+
+           bot.sendMessage(chat.id, 'Вы выбрали русский язык!');
+           setTimeout(() =>{
+           bot.deleteMessage(chat.id, message_Id);
+           },2000);
+           break
+       case 'eng':
+           bot.sendMessage(chat.id, `You selected english language!`);
+           break
+       case 'cn':
+           bot.sendMessage(chat.id, `你選擇了中文`);
+           break
+       case 'in':
+           bot.sendMessage(chat.id, `Apakah kamu memilih bahasa indonesia`);
+           break
+       case 'kr':
+           bot.sendMessage(chat.id, `너는 한국어를 선택했다.`);
+           break
+       case 'jp':
+           bot.sendMessage(chat.id, `あなたは日本語を選んだ`);
+           break
+       case 'de':
+           bot.sendMessage(chat.id, `Sie haben die deutsche Sprache gewählt`);
+           break
+       case 'arab':
+           bot.sendMessage(chat.id, `لقد اخترت اللغة العربي!`);
+           break
+       case 'es':
+           bot.sendMessage(chat.id, `¿Escogiste el idioma español?`);
+           break
+   }
+   bot.answerCallbackQuery({
+       callback_query_id: query.id
+   })
+});
+// , [source,match]
+bot.onText(/\/start/,(msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Keyboard', {
+        reply_markup:{
+            inline_keyboard
+        }
     })
-};
-bot.onText(/\/start/, function (msg){
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Select language: ',opt);
 });
 
-bot.on('message', msg=>{
-    const chatId = msg.chat.id;
-    if (msg.data === 'rus'){
-        console.log("Russian");
-        bot.sendMessage(chatId, 'Its work');
-    }
-    if (msg.data === 'eng'){
-        console.log("English");
-    }
-});
 
-bot.onText(/\/activation/, msg=>{
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Select ');
-});
 
+
+
+//
+// const opt = {
+//     parse_mode: 'markdown',
+//     disable_web_page_preview: false,
+//     reply_markup: JSON.stringify({
+//         inline_keyboard: [
+//             [{text: 'Русский 🇷🇺', callback_data:'rus'},
+//                 {text: 'English 🏴󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'eng'},
+//                 {text: 'CN 🇨🇳', callback_data:'cn'}],
+//             [{text: 'IN 🇮🇳', callback_data:'in'},
+//                 {text: 'KR 🇰🇷󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'kr'},
+//                 {text: 'JP 🇯🇵', callback_data:'jp'}],
+//             [{text: 'DE 🇩🇪', callback_data:'de'},
+//                 {text: 'Arab 🇸🇦󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'arab'},
+//                 {text: 'ES 🇪🇸', callback_data:'es'}]
+//         ]
+//     })
+// };
+// bot.onText(/\/start/, function (msg){
+//     const chatId = msg.chat.id;
+//     bot.sendMessage(chatId, 'Select language: ',opt);
+// });
+//
+// bot.on('message', msg=>{
+//     const chatId = msg.chat.id;
+//     if (msg.data === 'rus'){
+//         console.log("Russian");
+//         bot.sendMessage(chatId, 'Its work');
+//     }
+//     if (msg.data === 'eng'){
+//         console.log("English");
+//     }
+// });
+//
+// bot.onText(/\/activation/, msg=>{
+//     const chatId = msg.chat.id;
+//     bot.sendMessage(chatId, 'Select ');
+// });
+//
 
 //
 //
