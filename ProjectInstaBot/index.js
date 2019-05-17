@@ -41,11 +41,10 @@ bot.on('callback_query', query =>{
     const {chat} = query.message;
    switch (query.data) {
        case 'rus':
-
            bot.sendMessage(chat.id, 'Вы выбрали русский язык!');
-           setTimeout(() =>{
-           bot.deleteMessage(chat.id, message_Id);
-           },2000);
+           // setTimeout(() =>{
+           // bot.deleteMessage(chat.id, message_Id);
+           // },2000);
            break
        case 'eng':
            bot.sendMessage(chat.id, `You selected english language!`);
@@ -79,7 +78,7 @@ bot.on('callback_query', query =>{
 // , [source,match]
 bot.onText(/\/start/,(msg) => {
     const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Keyboard', {
+    bot.sendMessage(chatId, 'Select language:', {
         reply_markup:{
             inline_keyboard
         }
