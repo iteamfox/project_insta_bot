@@ -77,12 +77,17 @@ bot.on('callback_query', query =>{
 });
 // , [source,match]
 bot.onText(/\/start/,(msg) => {
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Select language:', {
+    const chat_Id = msg.chat.id;
+    bot.sendMessage(chat_Id, 'Select language:', {
         reply_markup:{
             inline_keyboard
         }
     })
+});
+
+bot.onText(/\/activation/, msg=>{
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Select ');
 });
 
 
