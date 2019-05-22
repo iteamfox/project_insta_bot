@@ -2,6 +2,7 @@ process.env["NTBA_FIX_319"] = 1;
 const TelegramBot = require('node-telegram-bot-api');
 // const translate = require('extended-google-translate-api');
 const debug = require('./helpers');
+var schedule = require('node-schedule');
 const TOKEN = '808615413:AAH-isfi1X1nzpalYtHF-3NGuZxeGqdn_64';
 console.log('Bot has been started ...');
 
@@ -14,6 +15,14 @@ const bot = new TelegramBot(TOKEN,{
         }
     }
 });
+
+
+var cron = require('cron');
+var cronJob = cron.job("0 */1 * * * *", function(){
+    // perform operation e.g. GET request http.get() etc.
+    console.info('cron job completed');
+});
+cronJob.start();
 
 
 const inline_keyboard = [
