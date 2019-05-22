@@ -3,7 +3,7 @@
 ## Функционал
 Обработка выбора языка для пользовыателя, с дальнейшим общением на выбраном языке!
 Поиск учетной записи пользователя инстаграм через ник нейм.
-## Powered by node.js
+## Powered by webstorm
 <p align="center">
    <a href="https://www.jetbrains.com/webstorm/"><img src="webstorm.png" width="75"></a>
 </p>
