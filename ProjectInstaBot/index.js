@@ -14,14 +14,14 @@ const bot = new TelegramBot(TOKEN,{
         }
     }
 });
-
-bot.on('message', msg => {
-    const markdown = `
-    *Hello, ${msg.from.first_name}!🖐*`;
-    bot.sendMessage(msg.chat.id, markdown, {
-        parse_mode: 'Markdown'
-    })
-});
+//
+// bot.on('message', msg => {
+//     const markdown = `
+//     *Hello, ${msg.from.first_name}!🖐*`;
+//     bot.sendMessage(msg.chat.id, markdown, {
+//         parse_mode: 'Markdown'
+//     })
+// });
 
 
  const inline_keyboard = [
@@ -35,19 +35,23 @@ bot.on('message', msg => {
                 {text: 'Arab 🇸🇦󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'arab'},
                 {text: 'ES 🇪🇸', callback_data:'es'}]
         ];
+const activation_keyboard = [
+    [{text: 'Да✅', callback_data:'yes'},
+        {text: 'Нет❌󠁧󠁢󠁥󠁮󠁧󠁿', callback_data:'no'}]
+    ];
 
 bot.on('callback_query', query =>{
 // , message_id, text - to const
     const {chat} = query.message;
    switch (query.data) {
        case 'rus':
-           bot.sendMessage(chat.id, 'Вы выбрали русский язык!');
+           bot.sendMessage(chat.id, 'Вы выбрали русский язык❗️');
            // setTimeout(() =>{
            // bot.deleteMessage(chat.id, message_Id);
            // },2000);
            break
        case 'eng':
-           bot.sendMessage(chat.id, `You selected english language!`);
+           bot.sendMessage(chat.id, `You selected english language❗️`);
            break
        case 'cn':
            bot.sendMessage(chat.id, `你選擇了中文`);
@@ -78,16 +82,51 @@ bot.on('callback_query', query =>{
 // , [source,match]
 bot.onText(/\/start/,(msg) => {
     const chat_Id = msg.chat.id;
-    bot.sendMessage(chat_Id, 'Select language:', {
+    const markdown = `*Hello, ${msg.from.first_name}!🖐* \n_Select language: _`;
+        bot.sendMessage(chat_Id, markdown, {
+            parse_mode: 'Markdown',
         reply_markup:{
             inline_keyboard
         }
-    })
+    } );
+
 });
 
 bot.onText(/\/activation/, msg=>{
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Select ');
+    const chat_Id = msg.chat.id;
+    bot.sendMessage(chat_Id, 'Введите ваш ник в инстаграм ✏️...');
+    bot.on('text', (msg)=>{
+        if (msg.text!==null){
+            bot.sendMessage(chat_Id, "Это Ваш инстаграм? https://www.instagram.com/"+msg.text,{
+                reply_markup:{
+                    inline_keyboard: activation_keyboard
+                }
+            });
+        }
+    });
+});
+bot.on('callback_query', query =>{
+    const {chat} = query.message;
+    switch (query.data) {
+        case 'yes':
+            bot.sendMessage(chat.id, 'Excellent👌');
+            break
+        case 'no':
+            bot.sendMessage(chat.id, `Введите ваш ник корректнее⚠️`);
+            bot.on('text', (msg)=>{
+                if (msg.text!==null){
+                    bot.sendMessage(chat_Id, "Это Ваш инстаграм? https://www.instagram.com/"+msg.text,{
+                        reply_markup:{
+                            inline_keyboard: activation_keyboard
+                        }
+                    });
+                }
+            });
+            break
+    }
+    bot.answerCallbackQuery({
+        callback_query_id: query.id
+    })
 });
 
 
