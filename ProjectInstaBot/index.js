@@ -16,6 +16,14 @@ const bot = new TelegramBot(TOKEN,{
     }
 });
 
+// forever start main.js  # запуск приложения
+// forever restart main.js # перезапуск приложения
+// forever stop main.js # остановка приложения
+// forever list # посмотреть список запущенных приложений
+// forever restartall # перезапуск всех приложений
+// forever stopall # остановка всех приложений
+// https://lonelyelk.ru/posts/57/
+
 
 var cron = require('cron');
 var cronJob = cron.job("0 */1 * * * *", function(){
