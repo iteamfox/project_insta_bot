@@ -16,6 +16,7 @@ const bot = new TelegramBot(TOKEN,{
     }
 });
 
+
 // forever start main.js  # запуск приложения
 // forever restart main.js # перезапуск приложения
 // forever stop main.js # остановка приложения
