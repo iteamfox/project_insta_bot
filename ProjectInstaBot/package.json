@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cron": "^1.7.1",
     "esm": "^3.2.25",
     "google-translate-api": "^2.3.0",
